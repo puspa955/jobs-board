@@ -1,5 +1,5 @@
 import { MapPin, Clock, DollarSign } from 'lucide-react';
-import { Job } from '../data/jobsData';
+import { Job } from '../hooks/useJobs'
 
 interface JobCardProps {
   job: Job;

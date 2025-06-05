@@ -3,7 +3,9 @@ import { SearchInput } from '../components/SearchInput';
 import { FilterPanel } from '../components/FilterPanel';
 import { JobCard } from '../components/JobCard';
 import { ApplyModal } from '../components/ApplyModal';
-import { jobsData } from '../data/jobsData';
+import { Navbar } from '../components/Navbar';
+import { useJobs } from '../hooks/useJobs';
+import { useAuth } from '../contexts/AuthContext';
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,8 +14,11 @@ const Index = () => {
   const [selectedJob, setSelectedJob] = useState(null);
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
 
+  const { jobs, loading, error } = useJobs();
+  const { user } = useAuth();
+
   const filteredJobs = useMemo(() => {
-    return jobsData.filter(job => {
+    return jobs.filter(job => {
       const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            job.company.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesLocation = !selectedLocation || job.location === selectedLocation;
@@ -21,47 +26,84 @@ const Index = () => {
       
       return matchesSearch && matchesLocation && matchesType;
     });
-  }, [searchTerm, selectedLocation, selectedType]);
+  }, [jobs, searchTerm, selectedLocation, selectedType]);
 
-  const locations = [...new Set(jobsData.map(job => job.location))];
-  const types = [...new Set(jobsData.map(job => job.type))];
+  const locations = [...new Set(jobs.map(job => job.location))];
+  const types = [...new Set(jobs.map(job => job.type))];
 
   const handleApply = (job) => {
+    if (!user) {
+      alert('Please sign in to apply for jobs');
+      return;
+    }
     setSelectedJob(job);
     setIsApplyModalOpen(true);
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+        <Navbar />
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading jobs...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+        <Navbar />
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center">
+            <p className="text-red-600 mb-4">Error loading jobs: {error}</p>
+            <button 
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <Navbar />
+      
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-md border-b border-white/20 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
-              Dream Jobs Board
-            </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Discover your next career opportunity from top companies worldwide
-            </p>
-          </div>
-          
-          <div className="flex flex-col lg:flex-row gap-4 items-center justify-center">
-            <div className="w-full lg:w-96">
-              <SearchInput 
-                value={searchTerm}
-                onChange={setSearchTerm}
-                placeholder="Search jobs or companies..."
-              />
-            </div>
-            <FilterPanel
-              locations={locations}
-              types={types}
-              selectedLocation={selectedLocation}
-              selectedType={selectedType}
-              onLocationChange={setSelectedLocation}
-              onTypeChange={setSelectedType}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+            Find Your Dream Job
+          </h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Discover your next career opportunity from top companies worldwide
+          </p>
+        </div>
+        
+        <div className="flex flex-col lg:flex-row gap-4 items-center justify-center">
+          <div className="w-full lg:w-96">
+            <SearchInput 
+              value={searchTerm}
+              onChange={setSearchTerm}
+              placeholder="Search jobs or companies..."
             />
           </div>
+          <FilterPanel
+            locations={locations}
+            types={types}
+            selectedLocation={selectedLocation}
+            selectedType={selectedType}
+            onLocationChange={setSelectedLocation}
+            onTypeChange={setSelectedType}
+          />
         </div>
       </div>
 
