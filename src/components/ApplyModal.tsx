@@ -1,6 +1,14 @@
-import { X, CheckCircle, Briefcase } from 'lucide-react';
+import { X, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
-import { Job } from '../data/jobsData';
+import { useApplications } from '../hooks/useApplications';
+import { useAuth } from '../contexts/AuthContext';
+
+interface Job {
+  id: string;
+  title: string;
+  company: string;
+  logo: string;
+}
 
 interface ApplyModalProps {
   job: Job | null;
@@ -10,6 +18,7 @@ interface ApplyModalProps {
 
 export const ApplyModal = ({ job, isOpen, onClose }: ApplyModalProps) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,21 +26,36 @@ export const ApplyModal = ({ job, isOpen, onClose }: ApplyModalProps) => {
     coverLetter: ''
   });
 
+  const { submitApplication, loading } = useApplications();
+  const { user } = useAuth();
+
   if (!isOpen || !job) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Application submitted for:', job.title, formData);
-    setIsSubmitted(true);
-    
-    // Auto close after 2 seconds
-    setTimeout(() => {
-      handleClose();
-    }, 2000);
+    setError('');
+
+    if (!user) {
+      setError('You must be logged in to apply');
+      return;
+    }
+
+    try {
+      await submitApplication(job.id, formData);
+      setIsSubmitted(true);
+      
+      // Auto close after 2 seconds
+      setTimeout(() => {
+        handleClose();
+      }, 2000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to submit application');
+    }
   };
 
   const handleClose = () => {
     setIsSubmitted(false);
+    setError('');
     setFormData({ name: '', email: '', phone: '', coverLetter: '' });
     onClose();
   };
@@ -66,6 +90,13 @@ export const ApplyModal = ({ job, isOpen, onClose }: ApplyModalProps) => {
                 <X className="h-5 w-5 text-gray-500" />
               </button>
             </div>
+
+            {/* Error Message */}
+            {error && (
+              <div className="mx-6 mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                {error}
+              </div>
+            )}
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
@@ -137,9 +168,10 @@ export const ApplyModal = ({ job, isOpen, onClose }: ApplyModalProps) => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium"
+                  disabled={loading}
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium disabled:opacity-50"
                 >
-                  Submit Application
+                  {loading ? 'Submitting...' : 'Submit Application'}
                 </button>
               </div>
             </form>
