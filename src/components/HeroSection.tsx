@@ -153,7 +153,7 @@ export const HeroSection = () => {
             >
               <Button 
                 variant="outline" 
-                className="group border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-300 px-8 py-4 text-lg transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] backdrop-blur-sm relative overflow-hidden"
+                className="group border-cyan-400/50 text-cyan-400 hover:text-slate-300 hover:bg-cyan-400/10 hover:border-cyan-300 px-8 py-4 text-lg transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] backdrop-blur-sm relative overflow-hidden"
               >
                 <motion.div
                   className="absolute inset-0 bg-cyan-400/5 opacity-0 group-hover:opacity-100"

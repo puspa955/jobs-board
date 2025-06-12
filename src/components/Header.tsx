@@ -64,7 +64,7 @@ export const Header = () => {
           >
             <Button 
               variant="outline" 
-              className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-300 transition-all duration-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] backdrop-blur-sm"
+              className="border-cyan-400/50 text-cyan-400 hover:text-slate-300 hover:bg-cyan-400/10 hover:border-cyan-300 transition-all duration-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.4)] backdrop-blur-sm"
             >
               API Docs
             </Button>
