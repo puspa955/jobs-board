@@ -5,7 +5,7 @@ import { FloatingDataPoints } from "./FloatingDataPoints";
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden mt-16">
       {/* Holographic grid background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,255,0.1)_0%,transparent_70%)]"></div>
       
@@ -53,7 +53,7 @@ export const HeroSection = () => {
             
             <Button 
               variant="outline" 
-              className="group border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-300 px-8 py-4 text-lg transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.4)]"
+              className="group border-cyan-400/50 text-cyan-400 hover:text-slate-300 hover:bg-cyan-400/10 hover:border-cyan-300 px-8 py-4 text-lg transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.4)]"
             >
               <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
               Watch Demo
