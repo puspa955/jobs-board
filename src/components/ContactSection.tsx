@@ -32,18 +32,17 @@ export const ContactSection = () => {
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Enhanced Contact form */}
             <motion.div 
-              className="bg-slate-900/50 backdrop-blur-sm border border-cyan-400/20 rounded-2xl p-8 shadow-[0_0_50px_rgba(0,255,255,0.1)] relative overflow-hidden group"
+              className="bg-slate-900/50 backdrop-blur-sm border border-cyan-400/20 rounded-2xl p-8  relative overflow-hidden group"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               viewport={{ once: true }}
               whileHover={{ 
-                boxShadow: "0 0 80px rgba(0,255,255,0.2)",
                 borderColor: "rgba(0,255,255,0.4)" 
               }}
             >
               <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100"
+                className="absolute inset-0 group-hover:opacity-100"
                 transition={{ duration: 0.3 }}
               />
               
@@ -95,18 +94,19 @@ export const ContactSection = () => {
                 </motion.div>
 
                 <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Button className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-900 font-bold py-3 transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] relative overflow-hidden group">
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-cyan-300 to-blue-300 opacity-0 group-hover:opacity-30"
-                      transition={{ duration: 0.3 }}
-                    />
-                    <Zap className="mr-2 h-5 w-5 group-hover:animate-pulse" />
-                    Transmit Message
-                  </Button>
-                </motion.div>
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    >
+                    <Button className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-900 font-bold py-3 transition-all duration-300 relative overflow-hidden group">
+                        <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-cyan-300 to-blue-300 opacity-0 group-hover:opacity-30"
+                        transition={{ duration: 0.3 }}
+                        />
+                        <Zap className="mr-2 h-5 w-5 group-hover:animate-pulse" />
+                        Transmit Message
+                    </Button>
+                    </motion.div>
+
               </form>
             </motion.div>
 
@@ -119,7 +119,7 @@ export const ContactSection = () => {
               viewport={{ once: true }}
             >
               <motion.div 
-                className="bg-slate-900/30 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6 hover:border-purple-400/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.1)]"
+                className="bg-slate-900/30 backdrop-blur-sm border border-purple-400/20 rounded-xl p-6 hover:border-purple-400/40 transition-all duration-300 "
                 whileHover={{ scale: 1.02, y: -5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -136,7 +136,7 @@ export const ContactSection = () => {
               </motion.div>
 
               <motion.div 
-                className="bg-slate-900/30 backdrop-blur-sm border border-green-400/20 rounded-xl p-6 hover:border-green-400/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,197,94,0.1)]"
+                className="bg-slate-900/30 backdrop-blur-sm border border-green-400/20 rounded-xl p-6 hover:border-green-400/40 transition-all duration-300 "
                 whileHover={{ scale: 1.02, y: -5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -158,7 +158,7 @@ export const ContactSection = () => {
               </motion.div>
 
               <motion.div 
-                className="bg-slate-900/30 backdrop-blur-sm border border-cyan-400/20 rounded-xl p-6 hover:border-cyan-400/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.1)]"
+                className="bg-slate-900/30 backdrop-blur-sm border border-cyan-400/20 rounded-xl p-6 hover:border-cyan-400/40 transition-all duration-300 "
                 whileHover={{ scale: 1.02, y: -5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >

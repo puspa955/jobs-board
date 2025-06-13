@@ -68,7 +68,7 @@ export const TechnologySection = () => {
 
         {/* Active technology display */}
         {activeTech && (
-          <div className="bg-slate-900/50 backdrop-blur-sm border border-cyan-400/20 rounded-2xl p-8 shadow-[0_0_50px_rgba(0,255,255,0.1)]">
+          <div className="bg-slate-900/50 backdrop-blur-sm border border-cyan-400/20 rounded-2xl p-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <div className="flex items-center mb-6">
