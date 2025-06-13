@@ -9,7 +9,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 overflow-x-hidden relative">
       {/* Matrix background effect */}
-      <MatrixBackground />
+      {/* <MatrixBackground /> */}
       
       {/* Scan lines overlay */}
       <div className="fixed inset-0 bg-[linear-gradient(rgba(0,255,255,0.03)_1px,transparent_1px)] bg-[length:100%_4px] pointer-events-none z-10"></div>
